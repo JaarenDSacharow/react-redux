@@ -1,18 +1,30 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import propTypes from 'prop-types';
 import { connect } from 'react-redux'; //connects components to the store provided by the provider component
-import { fetchPosts } from '../actions/postActions';  //bring in the aciton defined in the actions folder
+import { fetchPosts } from '../actions/postActions';  //bring in the action defined in the actions folder
 
 
 class Posts extends Component {    
 
 
-    componentWillMount(){
+    componentDidMount(){
         this.props.fetchPosts(); // this will call through connect to dispatch the fetchPosts action
     }
 
+    componentWillReceiveProps(nextProps) { // need to use getDerivedStateFromProps
+        //his.props.postItems.push(nextprops.newPost);
+        console.log("===============");
+        console.log(nextProps);
+        if(nextProps.newPost) {
+            this.props.posts.unshift(nextProps.newPost);
+        }
+        //push moves to the end, unshift moves to the beginning
+    }
+
+    
+
     render() {
-        const postItems = this.props.posts.map(post => (
+        const postItems = this.props.posts.map(post => (  //maps props.post rather than state.posts since state is now in redux
             <div key={post.id}>
                 <h3>{post.title}</h3>
                 <p>{post.body}</p>
@@ -45,12 +57,15 @@ class Posts extends Component {
 //}
 
 Posts.propTypes = {
-    fetchPosts: PropTypes.func.isRequired,
-    posts: PropTypes.array.isRequired
+    fetchPosts: propTypes.func.isRequired,
+    posts: propTypes.array.isRequired,
+    newPost: propTypes.object
 }
-
+//map state to the component props so you can use it in your component
+//using posts because it is defined as "posts" in the root reducer
 const mapStateToProps = (state) => ({
-    posts: state.posts.items  
+    posts: state.posts.items,
+    newPost: state.posts.item  
 });
 
 

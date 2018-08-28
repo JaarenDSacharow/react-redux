@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+
+import { Provider } from 'react-redux'; // a component that wraps the component in the store?
+
 import Posts from './components/Posts';
 import Postform from './components/Postform';
 
-import { Provider } from 'react-redux'; // a component that wraps the component in the store?
 import store from './store';
 
 

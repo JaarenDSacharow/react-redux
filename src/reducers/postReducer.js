@@ -1,26 +1,59 @@
+
 import { FETCH_POSTS, NEW_POST } from '../actions/types';
 
-
 const initialState = {
-    items: [], //list
-    item: {} //single post
+  items: [],
+  item: {}
+};
+
+export default function(state = initialState, action) {
+  switch (action.type) {
+    case FETCH_POSTS:
+    console.log(`====>>>>>>>>>>>>>>>>>>>>>>.${action.playload}`)
+      return {
+        ...state,
+        items: action.payload
+      };
+    case NEW_POST:
+    console.log(`====<<<<<<<<,.${action.playload}`)
+      return {
+        ...state,
+        item: action.payload
+      };
+    default:
+      return state;
+  }
 }
 
-// the reducer accepts actions dispatched from the action files,
-//takes a copy of the current state, and then creates a new state
-// based on the payload sent from the action.
 
-export default function(state = initialState, action ) {
-    switch(action.type) {
+// import { FETCH_POSTS, NEW_POST } from '../actions/types';
 
-        case FETCH_POSTS: //if action type
-            console.log('In PostReducer...')
-            return {
-                ...state, //entire current state with the spread operator
-                items: action.payload  //payload from the action 
-            }
+// //list
+// //single post
+// const initialState = {
+//     items: [], 
+//     item: {}
+// }
 
-        default: return state;
+// // the reducer accepts actions dispatched from the action files,
+// //takes a copy of the current state, and then creates a new state
+// // based on the payload sent from the action.
+
+// export default function(state = initialState, action) {
+//     switch(action.type) {
+//         case FETCH_POSTS:
+//             return {
+//                 ...state,
+//                 items: action.payload
+//             };
+//         case NEW_POST:
+//             return {
+//                 ...state,
+//                 item: action.playload
+//             };
+
+//         default:
+//             return state;
     
-    }
-}
+//     }
+// }
